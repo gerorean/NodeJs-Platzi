@@ -34,8 +34,9 @@ router.post('/message',function(req,res){//añade la ruta / y hace algo.. toda f
     console.log('query=',req.query);//consultas por query - post localhost:3000/message?orderBy=Idi - - - localhost:3000/message?orderBy=Idi&age=15
     console.log('post /message');
     if (req.query.error == 'ok'){//Simular un error desde query => Post localhost:3000/message?error=ok
+        response.error(req,res,'Error inesperado',500,'Es solo una simulación de los errores');//Respuesta exitosa personalizada desde el modulo response sin status
         //response.error(req,res,'Error simulado');//Respuesta exitosa personalizada desde el modulo response sin status
-        response.error(req,res,'Error simulado',401);//Respuesta exitosa personalizada desde el modulo response con status
+        //response.error(req,res,'Error simulado',401);//Respuesta exitosa personalizada desde el modulo response con status
         //response.error(req,res,'Error simulado',400);//Respuesta exitosa personalizada desde el modulo response con status
     }
     else{
@@ -54,6 +55,9 @@ router.post('/message',function(req,res){//añade la ruta / y hace algo.. toda f
 //    res.send('Hola desde get/');//Envia una respuesta al navegador
 //});
 
+
+app.use('/app',express.static('public'));//Servir archivos estáticos desde la carpeta public y ponerlos en la url /app => get http://localhost:3000/app/css/style.css
+
 //app.use('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
 //    console.log('app.use /');  
 //    res.send('Hola desde cualquiera');//Envia una respuesta al navegador
@@ -61,3 +65,19 @@ router.post('/message',function(req,res){//añade la ruta / y hace algo.. toda f
 
 app.listen(3000);//Servidor escucha en el puerto
 console.log('La aplicación esta escuchando en el puerto http://localhost:3000');//Salida por consola
+
+
+/*
+capas:
+Cliente_Usuario
+internet=> peticion
+
+Servidor
+1SERVIDOR server.js/configuración
+    2RED routes.js/rutas + response.js/respuestas
+        3COMPONENTS 
+            4message
+                [networks.js/http, controller.js/logicaDelNegocio, store.js_Donde y como se guarda la info/Bd],
+            4user
+                [networks.js/http, controller.js/logicaDelNegocio, store.js_Donde y como se guarda la info/Bd]
+*/
