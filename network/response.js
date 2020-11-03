@@ -1,4 +1,6 @@
+//Servidor de respuestas:
 //Network => Todas las partes de la capa de red, modulo que se encarga de responder a todas las peticiones:
+
 exports.success = function(req,res,message,status){//Cuando algo vaya bien más tercer parámetro y status
 //exports.success = function(req,res,message){//Cuando algo vaya bien más tercer parametro
 //exports.success = function(req,res){//Cuando algo vaya bien:
