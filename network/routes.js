@@ -1,8 +1,5 @@
-//Servidor de rutas: si mañana tengo otro componente, esta es la forma de importar todos los routes en un solo archivo:
-//Maneja toda la información del Router en un archivo separado:
-
 //Modulos:
-const express = require ('express');//(ES6)import express form 'express'; ->Servidor rápido
+//const express = require ('express');//(ES6)import express form 'express'; ->Servidor rápido
 const message = require ('../components/message/network');//trae el método del message
 
 //AQUI VAN A VENIR TODAS LAS RUTAS:
@@ -13,3 +10,12 @@ const routes = function(server){//Función que trae todas las rutas, se le pasa 
 }
 
 module.exports = routes;
+/*
+routes.js => MANEJADOR/SERVIDOR DE RUTAS - ROUTER
+Se encarga de:
+1- Recibe la información del SERVIDOR
+2- Gestiona las rutas.
+3- Ver hacia donde quiere ir la petición y va a llamar al componente adecuado.
+4- Si llega otro componente, esta es la forma de importar todos los routes en un solo archivo
+5- Maneja toda la información del Router en un archivo separado
+*/

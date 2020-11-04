@@ -21,3 +21,12 @@ exports.error = function(req,res,error,status,details){//Cuando algo vaya mal:
         body:''
     });
 }
+
+/*
+response.js MANEJADOR DE RESPUESTAS
+1- cada vez que una petición sea correcta, el modulo http en lugar de devolverlo al router se lo pasa al response.js
+2- responde al cliente final
+3- se asegura que siempre las peticiones que llegan tengan la misma forma y el mismo sentido
+
+
+*/
