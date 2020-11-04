@@ -15,7 +15,15 @@ router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función 
     console.log('body=',req.body);
     console.log('query=',req.query);//get localhost:3000/message?orderBy=Id
     console.log('get /message');
-    response.success(req,res,'Lista de mensajes');//Respuesta exitosa personalizada desde el modulo response
+    controller.getMessages()//Trae la promesa
+        .then((messageList) => {
+            response.success(req,res,messageList,200);//Respuesta exitosa personalizada desde el modulo response 
+        })
+        .catch(e => {
+            response.error(req,res,'Unexpected error',500,e);//Respuesta fallida personalizada desde el modulo response sin status
+        })
+    ;
+    //response.success(req,res,'Lista de mensajes');//Respuesta exitosa personalizada desde el modulo response
     //response.success(req,res);//Responde exitosamente sin personalizar desde el modulo response
     //res.send('Lista de mensajes');//Envia una respuesta al navegador
 });
@@ -62,7 +70,6 @@ router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función
 
 //console.log('C-network.js *** *** ***router=',router);
 module.exports = router;//trae las rutas de cada componente (message, user, etc) y las exporta
-
 
 /*
 networks.js MANEJADOR DE RUTAS, PERTENECE AL COMPONENTE: MENSAJE

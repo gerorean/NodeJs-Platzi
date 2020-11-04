@@ -1,3 +1,6 @@
+//Modulos
+const store = require('./store');//Maneja la base de datos
+
 //AÑADIR UN NUEVO MENSAJE:
 function addMessage(user,message){//Pasamos el usuario y el mesnsaje
     console.log('user=',user);
@@ -16,12 +19,25 @@ function addMessage(user,message){//Pasamos el usuario y el mesnsaje
             date:new Date(),//adiciona la fecha
         };
         console.log('- - fullMessage',fullMessage);
+        store.add(fullMessage);//Guarda en la base de datos
         resolve(fullMessage);//Resuelve la promesa, retorna el resultado
     });
 };
 
+//TRAER LOS MENSAJES:
+function getMessages(){//
+    //console.log('user=',user);
+    return new Promise((resolve,reject)=>{
+        resolve(store.list());
+        reject();
+    });//Retorna una promesa por si algo falla
+}
+    
+
+
 module.exports = { //Exportamos un objeto con la función addMessage
     addMessage,
+    getMessages,
 };
 
 /*
