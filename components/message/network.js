@@ -69,6 +69,8 @@ router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función
 //});
 
 //console.log('C-network.js *** *** ***router=',router);
+
+//EXPORTS
 module.exports = router;//trae las rutas de cada componente (message, user, etc) y las exporta
 
 /*

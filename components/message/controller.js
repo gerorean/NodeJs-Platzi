@@ -16,15 +16,15 @@ function addMessage(user,message){//Pasamos el usuario y el mesnsaje
         const fullMessage =  {
             user:user,
             message:message,
-            date:new Date(),//adiciona la fecha
+            date: new Date(),//adiciona la fecha
         };
         console.log('- - fullMessage',fullMessage);
-        store.add(fullMessage);//Guarda en la base de datos
+        store.add(fullMessage);//store.js => Guarda en la base de datos
         resolve(fullMessage);//Resuelve la promesa, retorna el resultado
     });
 };
 
-//TRAER LOS MENSAJES:
+//TRAER LOS MENSAJES
 function getMessages(){//
     //console.log('user=',user);
     return new Promise((resolve,reject)=>{
@@ -32,9 +32,8 @@ function getMessages(){//
         reject();
     });//Retorna una promesa por si algo falla
 }
-    
 
-
+//EXPORTS
 module.exports = { //Exportamos un objeto con la función addMessage
     addMessage,
     getMessages,

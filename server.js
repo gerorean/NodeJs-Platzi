@@ -76,4 +76,11 @@ node server
 sudo npm install nodemon      // nodemon --version
 nodemon server                =>reinicia el servidor con cada cambio que sea guardado
 npm i body-parser             =>permite trabajar con el body de la petición
+npm i mongoose                =>crea esquemas para la base de datos
+
+
+cuenta en mongodbAtlas:
+https://www.mongodb.com/cloud/atlas (Starr free)
+https://www.mongodb.com/cloud/atlas/register
 */
+

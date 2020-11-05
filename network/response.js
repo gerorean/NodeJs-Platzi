@@ -13,6 +13,7 @@ exports.success = function(req,res,message,status){//Cuando algo vaya bien más 
     //res.send('Primera respuesta');//Respuesta sin personalizar
 }
 
+//EXPORTS
 exports.error = function(req,res,error,status,details){//Cuando algo vaya mal:
     console.error('[response error] ',details);//Permite tener un log - registro con una etiqueta del error con detalles de lo que ha sucedido y el usuario no se entera, el servidor si
     //console.error(details);//Permite tener un log - registro del error con detalles de lo que ha sucedido y el usuario no se entera, el servidor si

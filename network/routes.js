@@ -9,6 +9,7 @@ const routes = function(server){//Función que trae todas las rutas, se le pasa 
     server.use('/message', message);//Por cada ruta, asigna una función, en esta caso la ruta se llama message, cada vez que las rutas llamen a message, llama al componente message y lo realiza => router.get('/message',function(req,res){}
 }
 
+//EXPORTS
 module.exports = routes;
 /*
 routes.js => MANEJADOR/SERVIDOR DE RUTAS - ROUTER
