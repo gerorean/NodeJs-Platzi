@@ -31,12 +31,38 @@ function getMessages(){//
         resolve(store.list());
         reject();
     });//Retorna una promesa por si algo falla
-}
+};
+
+//ACTUALIZAR UN MENSAJE DADO SU id
+function updateMessage(id, message){
+    return new Promise(async (resolve,reject) => {
+        console.log('id=',id,', message=',message)
+        if(!id || !message){
+            console.error('[messageController] No hay id o mensaje');
+            reject('invalid data');
+            return false;
+        }
+        /*
+        const fullMessage = {
+            id:id,
+            message:message,
+            date: new Date(),//adiciona la fecha
+        };
+        console.log('- - fullMessage',fullMessage);
+        */
+
+        const result = await store.updateText(id, message);
+        resolve(result); 
+        //reject();
+    });//Retorna una promesa por si algo falla
+};
+
 
 //EXPORTS
 module.exports = { //Exportamos un objeto con la función addMessage
     addMessage,
     getMessages,
+    updateMessage,
 };
 
 /*

@@ -68,6 +68,18 @@ router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función
 //    res.send('Hola desde get/');//Envia una respuesta al navegador
 //});
 
+router.patch('/:id',function(req,res){//añade la ruta /, id de la ruta que queremos modificar y hace modificaciones parciales.. toda función HTTP maneja dos parametros, una request y un responsive
+    console.log('***req.params.id=',req.params.id);
+    controller.updateMessage(req.params.id, req.body.message)
+        .then((data) => {
+            response.success(req, res, data, 200);
+        })
+        .catch(e => {
+            response.error(req, res, 'Error interno', 500, e);
+        });
+    //res.send('ok');
+});
+
 //console.log('C-network.js *** *** ***router=',router);
 
 //EXPORTS

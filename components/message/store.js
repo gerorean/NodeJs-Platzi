@@ -8,8 +8,8 @@ const DB_PASSWORD= 'tele1234';
 const DB_HOST= 'cluster0.38nlt.gcp.mongodb.net';
 const DB_NAME= 'telegram';
 //mongodb://user:user1234@aaa.bbb.com:aaaa/telegram //URL Base de datos
-const url = 'mongodb+srv://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME;
-//const url = 'mongodb://localhost:27017/telegram';
+//const url = 'mongodb+srv://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME;
+const url = 'mongodb://localhost:27017/telegram';
 console.log('url=',url);
 
 //Manejo de promesas en mongoose:
@@ -36,7 +36,7 @@ function addMessage(message){//Recibe el mensaje que se ha generado anteriorment
 };
 
 //Leer mensajes
-async function getMessage(){//función asincrona
+async function getMessages(){//función asincrona
 //function getMessage(){//funcion sincrona 
     //const messages = Model.find();//Pide todos los documentos de forma sincrona
     const messages = await Model.find();//Pide todos los documentos de forma asincrona
@@ -44,10 +44,25 @@ async function getMessage(){//función asincrona
     //return list;//Lista los mensajes de list
 };
 
+//Actualizar mensajes
+async function updateText(id, message){//función asincrona
+//function getMessage(){//funcion sincrona 
+    //const messages = Model.find();//Pide todos los documentos de forma sincrona
+    const foundMessage = await Model.findOne({
+        _id:id,
+    });//Pide todos los documentos de forma asincrona
+
+    foundMessage.message = message;
+    const newMessage = await foundMessage.save();
+    return newMessage;//Retorna los mensajes y detiene el guión
+        //return list;//Lista los mensajes de list
+};
+
 //EXPORTS
 module.exports = {
     add: addMessage,
-    list: getMessage,
+    list: getMessages,
+    updateText: updateText,
     //get
     //update;
     //delete
