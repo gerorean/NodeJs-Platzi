@@ -9,17 +9,22 @@ const router = express.Router();//Maneja las peticiones (Requests), las cabecera
 //Rutas que queremos que escuche para cada uno de los metódos:
 router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
 //router.get('/message',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
+    console.log('get => /message');
     console.log('req.header=',req.headers);//Leer cabeceras del req
     res.header({'custom-header':'Nuestro valor personalizado',});//Cabecera personalizada => ver Headers de la res en Postman
     console.log('res.header=',res.header);//Leer cabeceras del res
     console.log('body=',req.body);
     console.log('query=',req.query);//get localhost:3000/message?orderBy=Id
-    console.log('get /message');
-    controller.getMessages()//Trae la promesa
+    
+    const filterMessages = req.query.user || null;//Consultas con query ?--=**
+    controller.getMessages(filterMessages)//Trae la promesa (conFiltroQuery)
+    //controller.getMessages()//Trae la promesa
         .then((messageList) => {
+            //respuesta
             response.success(req,res,messageList,200);//Respuesta exitosa personalizada desde el modulo response 
         })
         .catch(e => {
+            //respuesta
             response.error(req,res,'Unexpected error',500,e);//Respuesta fallida personalizada desde el modulo response sin status
         })
     ;
@@ -30,16 +35,19 @@ router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función 
 
 router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
 //router.post('/message',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
+    console.log('post => /message');
     console.log('body=',req.body);//consultas por el body => se usa mucho cache-control, para cache espesificos de imagenes, archivos; user-agent para tipo de navegador
     console.log('query=',req.query);//consultas por query - post localhost:3000/message?orderBy=Idi - - - localhost:3000/message?orderBy=Idi&age=15
     console.log('post /message');
     controller.addMessage(req.body.user,req.body.message)
         //IN2     addMessage [new promise] <= controler.js
         .then((fullMessage) => {
+            //respuesta
             response.success(req,res,fullMessage,201);//Respuesta exitosa personalizada desde el modulo response   
             //response.success(req,res,'Creado correctamente',201);//Respuesta exitosa personalizada desde el modulo response
         })
         .catch((reject) => {
+            //respuesta
             response.error(req,res,reject,400,'Error en el controlador');//Respuesta fallida personalizada desde el modulo response sin status
         })
         //.catch((e) => {
@@ -69,12 +77,15 @@ router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función
 //});
 
 router.patch('/:id',function(req,res){//añade la ruta /, id de la ruta que queremos modificar y hace modificaciones parciales.. toda función HTTP maneja dos parametros, una request y un responsive
+    console.log('patch => /message/:id');
     console.log('***req.params.id=',req.params.id);
     controller.updateMessage(req.params.id, req.body.message)
         .then((data) => {
+            //respuesta
             response.success(req, res, data, 200);
         })
         .catch(e => {
+            //respuesta
             response.error(req, res, 'Error interno', 500, e);
         });
     //res.send('ok');

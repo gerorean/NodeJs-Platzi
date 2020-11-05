@@ -82,5 +82,14 @@ npm i mongoose                =>crea esquemas para la base de datos
 cuenta en mongodbAtlas:
 https://www.mongodb.com/cloud/atlas (Starr free)
 https://www.mongodb.com/cloud/atlas/register
+
+
+en store.js usando mongodb local => const url2 = 'mongodb://localhost:27017/telegram'; y corriendo mongo en una terminal no sale mensaje de advertencia, con la url de mongodb atlas si sale la advertencia:
+(node:1942) UnhandledPromiseRejectionWarning: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.38nlt.gcp.mongodb.net
+    at QueryReqWrap.onresolve [as oncomplete] (dns.js:203:19)
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1942) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+(node:1942) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
 */
 

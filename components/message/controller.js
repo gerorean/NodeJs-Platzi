@@ -3,13 +3,16 @@ const store = require('./store');//Maneja la base de datos
 
 //AÑADIR UN NUEVO MENSAJE:
 function addMessage(user,message){//Pasamos el usuario y el mesnsaje
+    //Mensaje en el servidor
     console.log('user=',user);
     console.log('message=',message);
     //Si no viene el usuario o el mensaje, trabajamos con promesas:
     return new Promise((resolve,reject)=>{
         if(!user||!message){//Si no hay usuario o no hay mensaje, no guarde nada
+            //Mensaje en el servidor
             console.error('[messageController] No hay usuario o mensaje');
             //return reject('Los datos son incorrectos');//return para que no siga ejecutando
+            //Respuesta al usuario
             reject('Los datos son incorrectos');//Mensaje de salida en el navegador
             return false;//return para que no siga ejecutando
         }
@@ -18,6 +21,7 @@ function addMessage(user,message){//Pasamos el usuario y el mesnsaje
             message:message,
             date: new Date(),//adiciona la fecha
         };
+        //Mensaje en el servidor
         console.log('- - fullMessage',fullMessage);
         store.add(fullMessage);//store.js => Guarda en la base de datos
         resolve(fullMessage);//Resuelve la promesa, retorna el resultado
@@ -25,10 +29,13 @@ function addMessage(user,message){//Pasamos el usuario y el mesnsaje
 };
 
 //TRAER LOS MENSAJES
-function getMessages(){//
+function getMessages(filterUser){//Con filtro
+//function getMessages(){//
     //console.log('user=',user);
     return new Promise((resolve,reject)=>{
-        resolve(store.list());
+        resolve(store.list(filterUser));////store.js => Resuelve la promesa filtrada y retorna el resultado
+        //resolve(store.list());////store.js => Resuelve la promesa y retorna el resultado
+        //Respuesta al usuario
         reject();
     });//Retorna una promesa por si algo falla
 };
@@ -38,7 +45,9 @@ function updateMessage(id, message){
     return new Promise(async (resolve,reject) => {
         console.log('id=',id,', message=',message)
         if(!id || !message){
+            //Mensaje en el servidor
             console.error('[messageController] No hay id o mensaje');
+            //Respuesta al usuario
             reject('invalid data');
             return false;
         }
@@ -51,8 +60,8 @@ function updateMessage(id, message){
         console.log('- - fullMessage',fullMessage);
         */
 
-        const result = await store.updateText(id, message);
-        resolve(result); 
+        const result = await store.updateText(id, message);//store.js => Actualiza el mensaje en la base de datos
+        resolve(result);//Resuelve la promesa, retorna el resultado
         //reject();
     });//Retorna una promesa por si algo falla
 };

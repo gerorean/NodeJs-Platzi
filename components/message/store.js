@@ -1,6 +1,6 @@
 //Modulos:
 const db = require('mongoose');//Trae Mongoose
-const Model = require('./model');//Trae el modelo
+const Model = require('./model');//Trae el modelo del mensaje
 
 //URL
 const DB_USER = 'rodrigo';
@@ -8,15 +8,17 @@ const DB_PASSWORD= 'tele1234';
 const DB_HOST= 'cluster0.38nlt.gcp.mongodb.net';
 const DB_NAME= 'telegram';
 //mongodb://user:user1234@aaa.bbb.com:aaaa/telegram //URL Base de datos
-//const url = 'mongodb+srv://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME;
-const url = 'mongodb://localhost:27017/telegram';
-console.log('url=',url);
+//const url1 = 'mongodb+srv://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME;
+//console.log('url1=',url1);
+const url2 = 'mongodb://localhost:27017/telegram';
+console.log('url2=',url2);
 
 //Manejo de promesas en mongoose:
 db.Promise = global.Promise;//Global objeto de nodeJs para acceder al scope global; la clase Promise, es una clase nativa de JS moderna para manejar promesas 
 
 //MongoClient constructor:
-db.connect(url,{
+db.connect(url2,{//Use cualquiera de las 2 url: localhost o mongodb.net
+//db.connect((url1 || url2),{//Use cualquiera de las 2 url: localhost o mongodb.net
     useNewUrlParser:true,//Use el nuevo parser de MongoDb, soluciona problemas de compatibilidad
     useUnifiedTopology:true,//Soluciona aviso de DeprecationWarning, ver Nota A
 });
@@ -36,10 +38,15 @@ function addMessage(message){//Recibe el mensaje que se ha generado anteriorment
 };
 
 //Leer mensajes
-async function getMessages(){//función asincrona
-//function getMessage(){//funcion sincrona 
+async function getMessages(filterUser){//función asincrona
+//function getMessage(){//funcion sincrona
+    let filter = {};//crea un filtro
+    if(filterUser !== null){
+        filter = {user: filterUser};//asigna valores al filtro
+    }
+    const messages = await Model.find(filter);//Pide todos los documentos filtrados de forma asincrona
+    //const messages = await Model.find();//Pide todos los documentos de forma asincrona
     //const messages = Model.find();//Pide todos los documentos de forma sincrona
-    const messages = await Model.find();//Pide todos los documentos de forma asincrona
     return messages;//Retorna los mensajes y detiene el guión
     //return list;//Lista los mensajes de list
 };
@@ -54,7 +61,7 @@ async function updateText(id, message){//función asincrona
 
     foundMessage.message = message;
     const newMessage = await foundMessage.save();
-    return newMessage;//Retorna los mensajes y detiene el guión
+    return newMessage;//Retorna el mensaje actualizado y detiene el guión
         //return list;//Lista los mensajes de list
 };
 
