@@ -91,6 +91,20 @@ router.patch('/:id',function(req,res){//añade la ruta /, id de la ruta que quer
     //res.send('ok');
 });
 
+router.delete('/:id',function(req,res){//añade la ruta /, id de la ruta que queremos modificar y hace modificaciones parciales.. toda función HTTP maneja dos parametros, una request y un responsive
+    console.log('delete => /message/:id');
+    console.log('***req.params.id=',req.params.id);
+    controller.deleteMessage(req.params.id)
+        .then(() => {
+            //respuesta
+            response.success(req, res, `Usuario ${req.params.id} eliminado`, 200);//Plantilla de ES6 para insertar mensajes
+        })
+        .catch(e => {//Pasamos el error para poderlo loggear
+            //respuesta
+            response.error(req, res, 'Error interno', 500, e);
+        });   
+});
+
 //console.log('C-network.js *** *** ***router=',router);
 
 //EXPORTS

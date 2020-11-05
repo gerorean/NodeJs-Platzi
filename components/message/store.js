@@ -65,11 +65,19 @@ async function updateText(id, message){//función asincrona
         //return list;//Lista los mensajes de list
 };
 
+//Eliminar mensajes
+function removeMessage(id){//función sincrona
+    return Model.deleteOne({//Model devuelve una promesa
+        _id:id,
+    });
+}
+
 //EXPORTS
 module.exports = {
     add: addMessage,
     list: getMessages,
     updateText: updateText,
+    remove: removeMessage,
     //get
     //update;
     //delete

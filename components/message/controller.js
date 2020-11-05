@@ -43,7 +43,7 @@ function getMessages(filterUser){//Con filtro
 //ACTUALIZAR UN MENSAJE DADO SU id
 function updateMessage(id, message){
     return new Promise(async (resolve,reject) => {
-        console.log('id=',id,', message=',message)
+        console.log('id=',id,', message=',message);
         if(!id || !message){
             //Mensaje en el servidor
             console.error('[messageController] No hay id o mensaje');
@@ -66,12 +66,32 @@ function updateMessage(id, message){
     });//Retorna una promesa por si algo falla
 };
 
-
+//BORRAR UN MENSAJE DADO SU id
+function deleteMessage(id){
+    return new Promise(async (resolve,reject) => {
+        console.log('id=',id);
+        if(!id){
+            //Mensaje en el servidor
+            console.error('[messageController] No hay id');
+            //Respuesta al usuario
+            reject('Id invalido');
+            return false;
+        }
+        store.remove(id)
+            .then(() => {
+                resolve();
+            })
+            .catch(e => {
+                reject(e);
+            });
+    });
+}
 //EXPORTS
 module.exports = { //Exportamos un objeto con la función addMessage
     addMessage,
     getMessages,
     updateMessage,
+    deleteMessage,
 };
 
 /*
