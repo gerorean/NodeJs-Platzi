@@ -1,10 +1,25 @@
+//URL
+const DB_USER = 'rodrigo';
+const DB_PASSWORD= 'tele1234';
+const DB_HOST= 'cluster0.38nlt.gcp.mongodb.net';
+const DB_NAME= 'telegram';
+//mongodb://user:user1234@aaa.bbb.com:aaaa/telegram //URL Base de datos
+//const url1 = 'mongodb+srv://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME;
+//console.log('url1=',url1);
+const urlDb = 'mongodb://localhost:27017/telegram';
+console.log('urlDb=',urlDb);
+
 //Modulos:
 const express = require ('express');//(ES6)import express form 'express'; ->Servidor rápido
 const bodyParser = require('body-parser');//Maneja el body de la petición
+
+const db = require('./db');
+
 const router = require('./network/routes');//Aquí se trae el routes de la capa de red
 //const router = require('./components/message/network');//Aquí se trae el routes del componente message
 
 //Objetos:
+db(urlDb);
 //const router = express.Router();//Maneja las peticiones (Requests), las cabeceras, se llevo al components-networks.js-router
 
 //MiddleWares de express:

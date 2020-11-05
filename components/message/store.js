@@ -1,29 +1,29 @@
 //Modulos:
-const db = require('mongoose');//Trae Mongoose
+//const db = require('mongoose');//Trae Mongoose
 const Model = require('./model');//Trae el modelo del mensaje
 
-//URL
-const DB_USER = 'rodrigo';
-const DB_PASSWORD= 'tele1234';
-const DB_HOST= 'cluster0.38nlt.gcp.mongodb.net';
-const DB_NAME= 'telegram';
+////URL
+//const DB_USER = 'rodrigo';
+//const DB_PASSWORD= 'tele1234';
+//const DB_HOST= 'cluster0.38nlt.gcp.mongodb.net';
+//const DB_NAME= 'telegram';
 //mongodb://user:user1234@aaa.bbb.com:aaaa/telegram //URL Base de datos
 //const url1 = 'mongodb+srv://'+DB_USER+':'+DB_PASSWORD+'@'+DB_HOST+'/'+DB_NAME;
 //console.log('url1=',url1);
-const url2 = 'mongodb://localhost:27017/telegram';
-console.log('url2=',url2);
+//const url2 = 'mongodb://localhost:27017/telegram';
+//console.log('url2=',url2);
 
-//Manejo de promesas en mongoose:
-db.Promise = global.Promise;//Global objeto de nodeJs para acceder al scope global; la clase Promise, es una clase nativa de JS moderna para manejar promesas 
+////Manejo de promesas en mongoose:
+//db.Promise = global.Promise;//Global objeto de nodeJs para acceder al scope global; la clase Promise, es una clase nativa de JS moderna para manejar promesas 
+//
+////MongoClient constructor:
+//db.connect(url2,{//Use cualquiera de las 2 url: localhost o mongodb.net
+////db.connect((url1 || url2),{//Use cualquiera de las 2 url: localhost o mongodb.net
+//    useNewUrlParser:true,//Use el nuevo parser de MongoDb, soluciona problemas de compatibilidad
+//    useUnifiedTopology:true,//Soluciona aviso de DeprecationWarning, ver Nota A
+//});
 
-//MongoClient constructor:
-db.connect(url2,{//Use cualquiera de las 2 url: localhost o mongodb.net
-//db.connect((url1 || url2),{//Use cualquiera de las 2 url: localhost o mongodb.net
-    useNewUrlParser:true,//Use el nuevo parser de MongoDb, soluciona problemas de compatibilidad
-    useUnifiedTopology:true,//Soluciona aviso de DeprecationWarning, ver Nota A
-});
-
-console.log('[db] Conectada con éxito');
+//console.log('[db] Conectada con éxito');
 
 //MOC?
 //const list = [];//Guarda todos los mensajes
@@ -81,7 +81,7 @@ module.exports = {
     //get
     //update;
     //delete
-}
+};
 
 /*
 store.js PUENTE CON LAS BASES DE DATOS
