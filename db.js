@@ -24,3 +24,14 @@ module.exports = connect;
 db.js => COMPARTE LA CONEXION CON LA BD
 1- ELIGE CUANDO CREAR LA CONEXIÓN CON LA BASE DE DATOS
 */
+
+/*
+Nota A:
+Aviso registrado en consola:
+node:7103) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient
+*/
+
+/*
+MongoDB URI
+mongo+srv://DB_USER:DB_PASSWORD@DB_HOST/DB_NAME
+*/
