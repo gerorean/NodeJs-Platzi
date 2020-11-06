@@ -9,6 +9,10 @@ function addUser(user){//Recibe el mensaje que se ha generado anteriormente
     return myUser.save();//Retorna una promesa y añade la info a mongoose
 };
 
+//Listar usuarios
+function listUsers(){
+    return Model.find();//Devuelve una promesa que se va encargando hacia atrás
+};
 
 
 /*
@@ -52,6 +56,7 @@ function removeMessage(id){//función sincrona
 //EXPORTS
 module.exports = {
     add: addUser,
+    list: listUsers,
     //list: getUser,
     //updateText: updateText,
     //remove: removeUser,

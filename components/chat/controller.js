@@ -2,37 +2,33 @@
 const store = require('./store');//Maneja la base de datos
 
 //AÑADIR UN NUEVO MENSAJE:
-function addUser(name){//Pasamos el usuario y el mensaje
+function addMessage(user,message){//Pasamos el usuario y el mesnsaje
     //Mensaje en el servidor
-    console.log('name=',name);
-    //Si no necesitamos la promesa completa porque ya va a devolver una, devolvemos un return Promise.reject()
-    if(!name){//Si no hay usuario o no hay mensaje, no guarde nada
+    console.log('user=',user);
+    console.log('message=',message);
+    //Si no viene el usuario o el mensaje, trabajamos con promesas:
+    return new Promise((resolve,reject)=>{
+        if(!user||!message){//Si no hay usuario o no hay mensaje, no guarde nada
+            //Mensaje en el servidor
+            console.error('[messageController] No hay usuario o mensaje');
+            //return reject('Los datos son incorrectos');//return para que no siga ejecutando
+            //Respuesta al usuario
+            reject('Los datos son incorrectos');//Mensaje de salida en el navegador
+            return false;//return para que no siga ejecutando
+        }
+        const fullMessage =  {
+            user:user,
+            message:message,
+            date: new Date(),//adiciona la fecha
+        };
         //Mensaje en el servidor
-        console.error('[user Controller] No hay nombre de usuario');
-        return Promise.reject('Invalid name');//TRUCO QUE devuelve una promesa rechazada
-    }
-    console.log('- - [controller] const user');
-    const user =  {
-        //name,
-        name:name,
-    };
-    console.log('- - [controller] const user =',user);
-    //Mensaje en el servidor
-    //console.log('- - fullMessage',fullMessage);
-    return store.add(user);//store.js => Guarda en la base de datos, y devuelve una promesa??
-    //resolve(fullMessage);//Resuelve la promesa, retorna el resultado
+        console.log('- - fullMessage',fullMessage);
+        store.add(fullMessage);//store.js => Guarda en la base de datos
+        resolve(fullMessage);//Resuelve la promesa, retorna el resultado
+    });
 };
 
-//TRAER LISTA DE USUARIOS
-function ListUsers(){
-    return store.list();//store.js => Resuelve la promesa y retorna el resultado
-};//Retorna una promesa por si algo falla
-
-
-
-
-/*
-//TRAER LOS USUARIOS
+//TRAER LOS MENSAJES
 function getMessages(filterUser){//Con filtro
 //function getMessages(){//
     //console.log('user=',user);
@@ -55,14 +51,14 @@ function updateMessage(id, message){
             reject('invalid data');
             return false;
         }
-        
-        //const fullMessage = {
-        //    id:id,
-        //    message:message,
-        //    date: new Date(),//adiciona la fecha
-        //};
-        //console.log('- - fullMessage',fullMessage);
-        
+        /*
+        const fullMessage = {
+            id:id,
+            message:message,
+            date: new Date(),//adiciona la fecha
+        };
+        console.log('- - fullMessage',fullMessage);
+        */
 
         const result = await store.updateText(id, message);//store.js => Actualiza el mensaje en la base de datos
         resolve(result);//Resuelve la promesa, retorna el resultado
@@ -90,21 +86,15 @@ function deleteMessage(id){
             });
     });
 }
-*/
-
-
-
-
 //EXPORTS
 module.exports = { //Exportamos un objeto con la función addMessage
-    addUser,
-    ListUsers,
-    //getUsers,
-    //updateUser,
-    //deleteUser,
+    addMessage,
+    getMessages,
+    updateMessage,
+    deleteMessage,
 };
 
-/*03=>
+/*
 controller.js CONTROLADOR, PERTENECE AL COMPONENTE: MENSAJE
 1- Tiene toda la lógica del componente (Lógica del negocio)
 2- si el mensaje necesita una fecha, hay se añade 

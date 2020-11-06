@@ -6,20 +6,14 @@ const Schema = mongoose.Schema;//Crea la clase esquema, se va a utlizar mucho, p
 
 //1- ESQUEMA
 const mySchema = new Schema({//Define el esquema
-    user: {//establece relación con el componente user
+    users: [//Array, lista de objetos
         type: Schema.ObjectId,
         ref: 'User',//Debemos popular la información, si esto hace referencia a otro dato, otra cosa, objeto de nuestra base de datos, la busca y trae toda la información => store.js => getMessages
-    },
-    //user: String,
-    message: {//Puede tener objetos, filtros, etc..
-        type: String,
-        required: true,
-    },
-    date: Date,
+    ]
 });
 
 //2- MODELO
-const model = mongoose.model('Message', mySchema);//Define el nombre de la colección en Mongo, y en el segundo el Esquema que le hemos pasado
+const model = mongoose.model('Chat', mySchema);//Define el nombre de la colección en Mongo, y en el segundo el Esquema que le hemos pasado
 
 //EXPORTS
 module.exports = model;

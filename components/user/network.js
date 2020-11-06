@@ -29,31 +29,23 @@ router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función
 });
 
 
-
-
-
-/*
-
-//Rutas que queremos que escuche para cada uno de los metódos:
 router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
-//router.get('/message',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
-    console.log('get => /message');
+    console.log('get => /user');
     console.log('req.header=',req.headers);//Leer cabeceras del req
     res.header({'custom-header':'Nuestro valor personalizado',});//Cabecera personalizada => ver Headers de la res en Postman
     console.log('res.header=',res.header);//Leer cabeceras del res
     console.log('body=',req.body);
     console.log('query=',req.query);//get localhost:3000/message?orderBy=Id
     
-    const filterMessages = req.query.user || null;//Consultas con query ?--=**
-    controller.getMessages(filterMessages)//Trae la promesa (conFiltroQuery)
-    //controller.getMessages()//Trae la promesa
-        .then((messageList) => {
+    //const filterUsers = req.query.user || null;//Consultas con query ?--=**
+    controller.ListUsers()//Trae la promesa ()
+        .then((Users) => {
             //respuesta
-            response.success(req,res,messageList,200);//Respuesta exitosa personalizada desde el modulo response 
+            response.success(req,res,Users,200);//Respuesta exitosa personalizada desde el modulo response 
         })
         .catch(e => {
             //respuesta
-            response.error(req,res,'Unexpected error',500,e);//Respuesta fallida personalizada desde el modulo response sin status
+            response.error(req,res,'Internal error',500,e);//Respuesta fallida personalizada desde el modulo response sin status
         })
     ;
     //response.success(req,res,'Lista de mensajes');//Respuesta exitosa personalizada desde el modulo response
@@ -61,6 +53,7 @@ router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función 
     //res.send('Lista de mensajes');//Envia una respuesta al navegador
 });
 
+/*
 //router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
 //    console.log('router.get /');
 //    res.send('Hola desde get/');//Envia una respuesta al navegador

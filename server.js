@@ -98,6 +98,8 @@ cuenta en mongodbAtlas:
 https://www.mongodb.com/cloud/atlas (Starr free)
 https://www.mongodb.com/cloud/atlas/register
 
+Node.js Tutorial MitoCode:
+https://www.youtube.com/playlist?list=PLvimn1Ins-41lVr-SPWF1mdNTzog05TcA
 
 en store.js usando mongodb local => const url2 = 'mongodb://localhost:27017/telegram'; y corriendo mongo en una terminal no sale mensaje de advertencia, con la url de mongodb atlas si sale la advertencia:
 (node:1942) UnhandledPromiseRejectionWarning: Error: querySrv ECONNREFUSED _mongodb._tcp.cluster0.38nlt.gcp.mongodb.net
