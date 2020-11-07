@@ -1,10 +1,16 @@
 //Modulos:
 const express = require ('express');//(ES6)import express form 'express'; ->Servidor rápido
+const multer = require ('multer');//Sube cualquier tipo de archivo en el body, Gestiona la transmisión y guardado de archivos, gestion de tipo, etc..
+
 const response = require('../../network/response');//Maneja las respuestas de las peticiones cuando van bien y cuando van mal
 const controller = require('./controller');//Trae el controlador
 
-//Objetos:
+//Objetos, instancias:
 const router = express.Router();//Maneja las peticiones (Requests), las cabeceras
+const upload = multer({
+    dest: 'uploads/',//Guarda archivos en la carpeta uploads, destino
+})
+
 
 //Rutas que queremos que escuche para cada uno de los metódos:
 router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
@@ -16,7 +22,8 @@ router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función 
     console.log('body=',req.body);
     console.log('query=',req.query);//get localhost:3000/message?orderBy=Id
     
-    const filterMessages = req.query.user || null;//Consultas con query ?--=**
+    const filterMessages = req.query.chat || null;//Consultas con query ?--=**
+    //const filterMessages = req.query.user || null;//Consultas con query ?--=**
     controller.getMessages(filterMessages)//Trae la promesa (conFiltroQuery)
     //controller.getMessages()//Trae la promesa
         .then((messageList) => {
@@ -33,13 +40,15 @@ router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función 
     //res.send('Lista de mensajes');//Envia una respuesta al navegador
 });
 
-router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
+//pasamos middleware => upload.sigle('NOMBRE_ARCHIVO') ;antes de que ejecute la funcion http:
+router.post('/', upload.single('file') ,function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
+//router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
 //router.post('/message',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
     console.log('post => /message');
     console.log('body=',req.body);//consultas por el body => se usa mucho cache-control, para cache espesificos de imagenes, archivos; user-agent para tipo de navegador
     console.log('query=',req.query);//consultas por query - post localhost:3000/message?orderBy=Idi - - - localhost:3000/message?orderBy=Idi&age=15
     console.log('post /message');
-    controller.addMessage(req.body.user,req.body.message)
+    controller.addMessage(req.body.chat, req.body.user, req.body.message)
         //IN2     addMessage [new promise] <= controler.js
         .then((fullMessage) => {
             //respuesta

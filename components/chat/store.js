@@ -7,7 +7,7 @@ function addChat(chat){//Recibe el mensaje que se ha generado anteriormente
     console.log('*** chat=',chat);
     const myChat = new Model(chat);//Instancia una nueva clase del modelo, utiliza el modelo
     console.log('*** myChat=',myChat);
-    myChat.save();//Añade la info a mongoose
+    return myChat.save();//Añade la info a mongoose
 };
 
 //Leer chats

@@ -2,13 +2,13 @@
 const store = require('./store');//Maneja la base de datos
 
 //AÑADIR UN NUEVO MENSAJE:
-function addMessage(user,message){//Pasamos el usuario y el mesnsaje
+function addMessage(chat, user,message){//Pasamos el usuario y el mesnsaje
     //Mensaje en el servidor
     console.log('user=',user);
     console.log('message=',message);
     //Si no viene el usuario o el mensaje, trabajamos con promesas:
     return new Promise((resolve,reject)=>{
-        if(!user||!message){//Si no hay usuario o no hay mensaje, no guarde nada
+        if(!chat || !user || !message){//Si no hay usuario o no hay mensaje, no guarde nada
             //Mensaje en el servidor
             console.error('[messageController] No hay usuario o mensaje');
             //return reject('Los datos son incorrectos');//return para que no siga ejecutando
@@ -17,6 +17,7 @@ function addMessage(user,message){//Pasamos el usuario y el mesnsaje
             return false;//return para que no siga ejecutando
         }
         const fullMessage =  {
+            chat:chat,
             user:user,
             message:message,
             date: new Date(),//adiciona la fecha
@@ -29,11 +30,13 @@ function addMessage(user,message){//Pasamos el usuario y el mesnsaje
 };
 
 //TRAER LOS MENSAJES
-function getMessages(filterUser){//Con filtro
+function getMessages(filterChat){//Con filtro
+//function getMessages(filterUser){//Con filtro
 //function getMessages(){//
     //console.log('user=',user);
     return new Promise((resolve,reject)=>{
-        resolve(store.list(filterUser));////store.js => Resuelve la promesa filtrada y retorna el resultado
+        resolve(store.list(filterChat));////store.js => Resuelve la promesa filtrada y retorna el resultado
+        //resolve(store.list(filterUser));////store.js => Resuelve la promesa filtrada y retorna el resultado
         //resolve(store.list());////store.js => Resuelve la promesa y retorna el resultado
         //Respuesta al usuario
         reject();

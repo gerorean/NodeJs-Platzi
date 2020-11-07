@@ -13,15 +13,14 @@ router.post('/',function(req,res){//añade la ruta / y hace algo.. toda función
     console.log('query=',req.query);//consultas por query - post localhost:3000/message?orderBy=Idi - - - localhost:3000/message?orderBy=Idi&age=15
     console.log('post /chat');
     controller.addChat(req.body.users)
-        //IN2     addMessage [new promise] <= controler.js
-        .then((data) => {
+        .then( data => {// addMessage [new promise] <= controler.js
             //respuesta
-            response.success(req,res,data,201);//Respuesta exitosa personalizada desde el modulo response   
+            response.success(req, res, data, 201);//Respuesta exitosa personalizada desde el modulo response   
         })
-        .catch((err) => {
+        .catch( err => {
             //respuesta
-            response.error(req,res,'Internal Error',500,err);//Respuesta fallida personalizada desde el modulo response sin status
-        })
+            response.error(req, res, 'Internal Error', 500, err);//Respuesta fallida personalizada desde el modulo response sin status
+        });
 });
 
 
