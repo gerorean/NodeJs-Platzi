@@ -2,7 +2,7 @@
 const store = require('./store');//Maneja la base de datos
 
 //AÑADIR UN NUEVO MENSAJE:
-function addMessage(chat, user,message){//Pasamos el usuario y el mesnsaje
+function addMessage(chat, user, message, file){//Pasamos el usuario y el mesnsaje
     //Mensaje en el servidor
     console.log('user=',user);
     console.log('message=',message);
@@ -16,11 +16,18 @@ function addMessage(chat, user,message){//Pasamos el usuario y el mesnsaje
             reject('Los datos son incorrectos');//Mensaje de salida en el navegador
             return false;//return para que no siga ejecutando
         }
+
+        let fileUrl = '';//Si no viene file guarda una ruta vacia por defecto
+        if (file) {
+            fileUrl = 'http://localhost:3000/app/files/'+file.filename;//app es donde estamos sirviendo los estaticos, ver server.js
+        }
+
         const fullMessage =  {
             chat:chat,
             user:user,
             message:message,
             date: new Date(),//adiciona la fecha
+            file: fileUrl,
         };
         //Mensaje en el servidor
         console.log('- - fullMessage',fullMessage);

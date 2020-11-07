@@ -7,10 +7,11 @@ const controller = require('./controller');//Trae el controlador
 
 //Objetos, instancias:
 const router = express.Router();//Maneja las peticiones (Requests), las cabeceras
-const upload = multer({
-    dest: 'uploads/',//Guarda archivos en la carpeta uploads, destino
-})
 
+const upload = multer({
+    dest: 'public/files/',//Guarda archivos en la carpeta uploads, destino
+    //dest: 'uploads/',//Guarda archivos en la carpeta uploads, destino
+})
 
 //Rutas que queremos que escuche para cada uno de los metódos:
 router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función HTTP maneja dos parametros, una request y un responsive
@@ -48,7 +49,9 @@ router.post('/', upload.single('file') ,function(req,res){//añade la ruta / y h
     console.log('body=',req.body);//consultas por el body => se usa mucho cache-control, para cache espesificos de imagenes, archivos; user-agent para tipo de navegador
     console.log('query=',req.query);//consultas por query - post localhost:3000/message?orderBy=Idi - - - localhost:3000/message?orderBy=Idi&age=15
     console.log('post /message');
-    controller.addMessage(req.body.chat, req.body.user, req.body.message)
+    console.log('***req.file=',req.file);
+    controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file)
+    //controller.addMessage(req.body.chat, req.body.user, req.body.message)
         //IN2     addMessage [new promise] <= controler.js
         .then((fullMessage) => {
             //respuesta

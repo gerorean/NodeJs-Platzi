@@ -20,6 +20,7 @@ const mySchema = new Schema({//Define el esquema
         required: true,
     },
     date: Date,
+    file: String,
 });
 
 //2- MODELO
