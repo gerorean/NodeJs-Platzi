@@ -23,16 +23,10 @@ function addUser(name){//Pasamos el usuario y el mensaje
     //resolve(fullMessage);//Resuelve la promesa, retorna el resultado
 };
 
-//TRAER LISTA DE USUARIOS
-function ListUsers(){
-    return store.list();//store.js => Resuelve la promesa y retorna el resultado
-};//Retorna una promesa por si algo falla
-
-
 
 
 /*
-//TRAER LOS USUARIOS
+//TRAER LOS MENSAJES
 function getMessages(filterUser){//Con filtro
 //function getMessages(){//
     //console.log('user=',user);
@@ -98,7 +92,6 @@ function deleteMessage(id){
 //EXPORTS
 module.exports = { //Exportamos un objeto con la función addMessage
     addUser,
-    ListUsers,
     //getUsers,
     //updateUser,
     //deleteUser,

@@ -6,10 +6,10 @@ const Schema = mongoose.Schema;//Crea la clase esquema, se va a utlizar mucho, p
 
 //1- ESQUEMA
 const mySchema = new Schema({//Define el esquema
-    users: [//Array, lista de objetos
+    users: [{//Array, lista de objetos
         type: Schema.ObjectId,
         ref: 'User',//Debemos popular la información, si esto hace referencia a otro dato, otra cosa, objeto de nuestra base de datos, la busca y trae toda la información => store.js => getMessages
-    ]
+    }]
 });
 
 //2- MODELO
