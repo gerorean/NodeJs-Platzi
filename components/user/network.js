@@ -38,7 +38,7 @@ router.get('/',function(req,res){//añade la ruta / y hace algo.. toda función 
     console.log('query=',req.query);//get localhost:3000/message?orderBy=Id
     
     //const filterUsers = req.query.user || null;//Consultas con query ?--=**
-    controller.ListUsers()//Trae la promesa ()
+    controller.listUsers()//Trae la promesa ()
         .then((Users) => {
             //respuesta
             response.success(req,res,Users,200);//Respuesta exitosa personalizada desde el modulo response 

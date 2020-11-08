@@ -88,10 +88,17 @@ function deleteMessage(id){
 
 
 
+//????????
+function listUsers() {
+    return store.list();
+}
+
+
 
 //EXPORTS
 module.exports = { //Exportamos un objeto con la función addMessage
     addUser,
+    listUsers,//???????
     //getUsers,
     //updateUser,
     //deleteUser,

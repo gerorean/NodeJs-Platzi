@@ -11,21 +11,27 @@ console.log('urlDb=',urlDb);
 
 //Modulos:
 const express = require ('express');//(ES6)import express form 'express'; ->Servidor rápido
-const bodyParser = require('body-parser');//Maneja el body de la petición
+const app = express();//Inicializa - crea el servidor
+const server = require('http').Server(app);//Traemos el servidor nativo de express .Server(app) trae el servidor con el app 
 
+const bodyParser = require('body-parser');//Maneja el body de la petición
+const socket = require('./socket');//Se trae la referencia a socketIO
 const db = require('./db');
 
 const router = require('./network/routes');//Aquí se trae el routes de la capa de red
 //const router = require('./components/message/network');//Aquí se trae el routes del componente message
+
 
 //Objetos:
 db(urlDb);
 //const router = express.Router();//Maneja las peticiones (Requests), las cabeceras, se llevo al components-networks.js-router
 
 //MiddleWares de express:
-var app = express();//Inicializa - crea el servidor
+//var app = express();//Inicializa - crea el servidor
 app.use(bodyParser.json());//A  añade el manejador JSON del cuerpo de la petición, convierte los JSON en objetos de JavaScript  => el body siempre lo encontramos en la request => req.body, para ver el cuerpo se necesita metódo manejador de JSON
 app.use(bodyParser.urlencoded({extended:false}));//A    igual que el anterior pero en vez de JSON va a maneja urlencode en el body, esta es opcional, convierte los urlEncoded en objetos de JavaScript ..
+
+socket.connect(server);//Servidor de socket conectado
 
 router(app);//A     Función que crea todas las rutas necesarias, Método que recive como parametro el servidor => routes.js
 //app.use(router);//añade el router a la aplicación de express
@@ -38,7 +44,10 @@ app.use('/app',express.static('public'));//A    Servir archivos estáticos desde
 //    res.send('Hola desde cualquiera');//Envia una respuesta al navegador
 //})
 
-app.listen(3000);//Servidor escucha en el puerto
+server.listen(3000, function (){//Servidor http, esta escuchando, el callback aquí es para asegurarnos de que esta escuchando
+    console.log('*** La aplicación esta escuchando en el puerto http://localhost:3000');
+});//Servidor escucha en el puerto
+//app.listen(3000);//Servidor escucha en el puerto
 console.log('La aplicación esta escuchando en el puerto http://localhost:3000');//Salida por consola
 
 
@@ -93,6 +102,7 @@ nodemon server                =>reinicia el servidor con cada cambio que sea gua
 npm i body-parser             =>permite trabajar con el body de la petición
 npm i mongoose                =>crea esquemas para la base de datos
 npm i multer                  =>Gestiona la transmisión y guardado de archivos, gestion de tipo, etc..
+npm i socket.io               =>Manejo de Web Sockets para manejo de "en tiempo real"
 
 cuenta en mongodbAtlas:
 https://www.mongodb.com/cloud/atlas (Starr free)

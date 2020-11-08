@@ -1,5 +1,6 @@
 //Modulos
 const store = require('./store');//Maneja la base de datos
+const socket = require('../../socket').socket;//Trae el socket y la instancia del objeto que hemos guardado, el manejador de Web Sockets
 
 //AÑADIR UN NUEVO MENSAJE:
 function addMessage(chat, user, message, file){//Pasamos el usuario y el mesnsaje
@@ -32,6 +33,9 @@ function addMessage(chat, user, message, file){//Pasamos el usuario y el mesnsaj
         //Mensaje en el servidor
         console.log('- - fullMessage',fullMessage);
         store.add(fullMessage);//store.js => Guarda en la base de datos
+        
+        socket.io.emit('message', fullMessage);//Con esto esta emitendo los mensajes en tiempo real por socket.io, para escucharlos => public/socket.html
+
         resolve(fullMessage);//Resuelve la promesa, retorna el resultado
     });
 };
